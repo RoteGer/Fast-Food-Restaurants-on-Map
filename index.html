@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
+    <link rel="stylesheet" href="style.css" type="text/css">
+    <title>Geolocation API and Leaflet Library</title>
+</head>
+<body>
+<main>
+    <div class="store-list">
+        <div class="header"><h2>Fast Food on Map</h2></div>
+        <div class="add-new-restaurant">
+            <form class="restaurant-form">
+                <input type="text" id="restaurant-name" placeholder="Restaurant Name">
+                <input type="tel" id="phone" placeholder="Phone Number">
+                <input type="textarea" id="address" placeholder="Address" style="height:60px"><br>
+                <input type="text" id="latitude" placeholder="Latitude">
+                <input type="text" id="longitude" placeholder="Longitude">
+                <button type="click" id="submit-btn">Create Restaurant</button>
+            </form>
+        </div>
+        <ul class="restaurant-ul-list">
+            <!---append list-->
+        </ul>
+    </div>
+    <div id="map"></div>
+</main>
+</body>
+<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
+<script src="script.js"></script>
+</html>

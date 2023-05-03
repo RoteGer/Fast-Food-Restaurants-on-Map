@@ -1,0 +1,21 @@
+#map {
+    height: 100vh;
+    width: 75%
+}
+
+input[type=text], [type=tel], input[type=textarea] {
+    width: 48%;
+    padding: 12px;
+    margin: 2px 1px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+}
+#submit-btn {
+    width: 98%;
+    height: 35px;
+    border:none;
+    border-radius: 2px;
+    background-color: #00c46a;
+    color: #fff;
+}
