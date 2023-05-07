@@ -1,21 +1,100 @@
+/*** Map ***/
+
 #map {
-    height: 100vh;
-    width: 75%
+    height: 500px;
+    width: 75%;
 }
 
-input[type=text], [type=tel], input[type=textarea] {
-    width: 48%;
+/*** Form ***/
+
+input[type="text"],
+input[type="tel"],
+input[type="textarea"] {
+    width: 100%;
     padding: 12px;
-    margin: 2px 1px;
+    margin: 2px 0;
     border: 1px solid #ccc;
     border-radius: 4px;
     resize: vertical;
 }
+
 #submit-btn {
-    width: 98%;
+    width: 50%;
     height: 35px;
-    border:none;
+    margin: 0 0 0 auto;
+    border: none;
     border-radius: 2px;
+    background-color: #7a7a7a;
+    color: #fff;
+}
+
+#submit-btn:hover {
+    background-color: #649a2f;
+}
+
+/*** Page ***/
+
+main {
+    display: flex;
+}
+
+.restaurant-list {
+    width: 25%;
+    background-color: #2d3449;
+    color: #fff;
+    overflow-y: auto; /* Add a scrollbar to the restaurant list */
+}
+
+.restaurant.list .header {
     background-color: #00c46a;
     color: #fff;
+    padding: 1rem;
+}
+
+.restaurant-list ul.restaurant-ul-list {
+    padding: 0 1rem;
+    list-style-type: none;
+    margin: 0;
+    max-height: 400px; /* Set a maximum height for the restaurant list */
+    overflow-y: auto; /* Add a scrollbar to the restaurant list */
+}
+
+.restaurant-list .restaurant-item {
+    margin: 1rem 0;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(214, 222, 224, 0.1);
+}
+
+.restaurant-list li:last-child .restaurant-item {
+    border: none;
+}
+
+.restaurant-list .store-item a {
+    text-decoration: none;
+    font-size: 18px;
+    color: #00c46a;
+    font-weight: bold;
+}
+
+.restaurant-list .store-item p {
+    font-size: 12px;
+    color: #fff;
+}
+
+/*** Responsive ***/
+
+@media screen and (max-width: 768px) {
+    main {
+        flex-direction: column;
+    }
+
+    #map {
+        height: 300px;
+        width: 100%;
+    }
+
+    .restaurant-list {
+        width: 100%;
+        height: auto;
+    }
 }
