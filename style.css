@@ -1,5 +1,4 @@
 /*** Map ***/
-
 #map {
     height: 800px;
     width: 75%;
@@ -10,23 +9,31 @@
 input[type="text"],
 input[type="tel"],
 input[type="textarea"] {
-    width: 100%;
-    padding: 12px;
-    margin: 2px 0;
+    width: 70%;
+    padding: 15px;
     border: 1px solid #ccc;
     border-radius: 4px;
     resize: vertical;
+    font-size: 16px;
+    font-family: "Lucida Console", "Courier New", monospace;
+    margin-left: 30px;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 #submit-btn {
-    width: 90%;
-    height: 35px;
-    margin: 0 0 0 auto;
+    width: 80%;
+    height: 50px;
     border: none;
-    border-radius: 2px;
+    border-radius: 25px;
     background-color: #7a7a7a;
     color: #fff;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-weight: bold;
+    margin-left: 30px;
+
 }
 
 #submit-btn:hover {
@@ -34,6 +41,55 @@ input[type="textarea"] {
 }
 
 /*** Page ***/
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Lucida Console", "Courier New", monospace;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ffffff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 10px 50px;
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: bold;
+    color: #222;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+nav li {
+    margin: 0 10px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #222;
+    font-weight: bold;
+    font-size: 18px;
+    transition: all 0.3s ease-in-out;
+}
+
+nav a:hover {
+    color: #df915b;
+}
 
 main {
     display: flex;
@@ -41,29 +97,36 @@ main {
 
 .restaurant-list {
     width: 25%;
-    background-color: #2d3449;
+    background-color: #a9d2de;
     color: #fff;
     overflow-y: auto; /* Add a scrollbar to the restaurant list */
 }
 
-.restaurant.list .header {
-    background-color: #00c46a;
+.restaurant-list .header {
+    background-color: #faa12a;
     color: #fff;
     padding: 1rem;
+    text-align: center;
+    font-size: 20px;
+    font-family: cursive;
+    text-shadow: 3px 3px 3px #ababab;
 }
 
 .restaurant-list ul.restaurant-ul-list {
     padding: 0 1rem;
     list-style-type: none;
     margin: 0;
-    max-height: 400px; /* Set a maximum height for the restaurant list */
-    overflow-y: auto; /* Add a scrollbar to the restaurant list */
+    max-height: 400px;
+    overflow-y: auto;
+    scrollbar-width: thin; /* Add a scrollbar */
+    scrollbar-color: #ccc #fff; /* Set scrollbar color */
+    font-family: cursive;
 }
 
 .restaurant-list .restaurant-item {
     margin: 1rem 0;
     padding-bottom: 1rem;
-    border-bottom: 1px solid rgba(214, 222, 224, 0.1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .restaurant-list li:last-child .restaurant-item {
@@ -80,22 +143,4 @@ main {
 .restaurant-list .store-item p {
     font-size: 12px;
     color: #fff;
-}
-
-/*** Responsive ***/
-
-@media screen and (max-width: 768px) {
-    main {
-        flex-direction: column;
-    }
-
-    #map {
-        height: 800px;
-        width: 100%;
-    }
-
-    .restaurant-list {
-        width: 100%;
-        height: auto;
-    }
 }
