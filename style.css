@@ -16,7 +16,7 @@ input[type="textarea"] {
     border-radius: 4px;
     resize: vertical;
     font-size: 16px;
-    font-family: "Lucida Console", "Courier New", monospace;
+    font-family: Tahoma, serif;
     margin-left: 30px;
     margin-top: 5px;
     margin-bottom: 5px;
@@ -45,7 +45,7 @@ input[type="textarea"] {
 body {
     margin: 0;
     padding: 0;
-    font-family: "Lucida Console", "Courier New", monospace;
+    font-family: Tahoma, serif;
 }
 
 header {
@@ -109,7 +109,7 @@ main {
     padding: 1rem;
     text-align: center;
     font-size: 20px;
-    font-family: cursive;
+    font-family: Tahoma, serif;
     text-shadow: 3px 3px 3px #ababab;
 }
 
@@ -121,7 +121,7 @@ main {
     overflow-y: auto;
     scrollbar-width: thin; /* Add a scrollbar */
     scrollbar-color: #ccc #fff; /* Set scrollbar color */
-    font-family: cursive;
+    font-family: Tahoma, serif;
 }
 
 .restaurant-list .restaurant-item {
