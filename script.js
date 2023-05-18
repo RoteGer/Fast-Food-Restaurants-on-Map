@@ -1,18 +1,9 @@
 let map;
 if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(success)
-
 }
 
-function success(position) {
-    const lat = position.coords.latitude;
-    const lng = position.coords.longitude;
-
-    map = L.map('map', {center: [lat, lng], zoom: 1});
-    let layer = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png');
-    layer.addTo(map);
-
-
+function DisplayMarker() {
     // Icon Option
     let iconOption = {
         iconUrl: 'images/marker.png',
@@ -32,6 +23,16 @@ function success(position) {
         }
     });
     restaurantLayer.addTo(map);
+}
+
+function success(position) {
+    const lat = position.coords.latitude;
+    const lng = position.coords.longitude;
+
+    map = L.map('map', {center: [lat, lng], zoom: 1});
+    let layer = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png');
+    layer.addTo(map);
+    DisplayMarker();
 }
 
 function customPopup(restaurant) {
@@ -75,3 +76,49 @@ function flyToStore(restaurant) {
 
     map.flyTo([lng, lat], 14, {duration: 1});
 }
+
+
+
+// DB using class DB
+function db_try() {
+
+// Create a new database instance
+    const db = new Database();
+
+// Connect to the database
+    db.connect();
+
+// Perform database operations
+    let res = db.connection.query("SELECT * FROM fast_food_on_map.fast_food_restaurants limit 20")
+    console.log(res);
+// Disconnect from the database
+    db.disconnect();
+
+}
+
+const Database = require('./database.js');
+
+// Create a new database instance
+const db = new Database();
+
+// Connect to the database
+db.connect();
+
+// Function to execute a query
+function executeQuery(query, params, callback) {
+    db.connection.query(query, params, (err, results, fields) => {
+        if (err) {
+            console.error('Error executing query:', err);
+            return callback(err, null);
+        }
+        callback(null, results, fields);
+    });
+}
+
+const sql = 'SELECT * FROM fast_food_on_map.fast_food_restaurants limit 20';
+const params = [];
+
+
+
+// Disconnect from the database
+db.disconnect();
