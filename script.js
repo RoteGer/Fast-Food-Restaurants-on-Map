@@ -1,9 +1,47 @@
 let map;
-if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(success)
+fetch('http://localhost:3000/restaurants')
+    .then(response => response.json())
+    .then(list  => {
+        // Usage:
+        const restaurantList = createGeoJSON(list);
+        console.log(restaurantList)
+        // Pass the retrieved restaurantList to the DisplayMarker function
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                success(position, restaurantList); // Pass the position and restaurantList as parameters to the success function
+
+            });
+        }
+    })
+    .catch(error => {
+        console.error('Error retrieving restaurant data:', error);
+    });
+
+function createGeoJSON(restaurantList) {
+
+    return {
+        type: 'FeatureCollection',
+        features: restaurantList.map(restaurant => {
+            return {
+                type: 'Feature',
+                properties: {
+                    name: restaurant.name,
+                    address: restaurant.address,
+                    websites: restaurant.websites // Add the website property from your restaurant object
+                },
+                geometry: {
+                    type: 'Point',
+                    coordinates: [restaurant.latitude, restaurant.longitude]
+                }
+            };
+        })
+    };
 }
 
-function DisplayMarker() {
+
+
+function DisplayMarker(restaurantList) {
+    console.log(restaurantList)
     // Icon Option
     let iconOption = {
         iconUrl: 'images/marker.png',
@@ -25,14 +63,15 @@ function DisplayMarker() {
     restaurantLayer.addTo(map);
 }
 
-function success(position) {
+function success(position, restaurantList) {
+    generateRestaurantList(restaurantList)
     const lat = position.coords.latitude;
     const lng = position.coords.longitude;
 
     map = L.map('map', {center: [lat, lng], zoom: 1});
     let layer = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png');
     layer.addTo(map);
-    DisplayMarker();
+    DisplayMarker(restaurantList);
 }
 
 function customPopup(restaurant) {
@@ -45,7 +84,7 @@ function customPopup(restaurant) {
     </div>`;
 }
 
-function generateRestaurantList() {
+function generateRestaurantList(restaurantList) {
     let ul = document.querySelector('.restaurant-ul-list');
 
     restaurantList.forEach(function (restaurant) {
@@ -54,13 +93,13 @@ function generateRestaurantList() {
         div.classList.add('restaurant-item');
         let a = document.createElement('a');
         let p = document.createElement('p');
-        a.innerText = restaurant.properties.name;
+        a.innerText = restaurant.name;
         a.href = '#';
         a.addEventListener('click', () => {
             flyToStore(restaurant);
         })
 
-        p.innerText = restaurant.properties.address;
+        p.innerText = restaurant.address;
         div.appendChild(a);
         div.appendChild(p);
         li.appendChild(div);
@@ -68,57 +107,10 @@ function generateRestaurantList() {
     })
 }
 
-generateRestaurantList();
 
 function flyToStore(restaurant) {
-    let lat = restaurant.geometry.coordinates[0];
-    let lng = restaurant.geometry.coordinates[1];
+    let lat = restaurant.latitude;
+    let lng = restaurant.longitude;
 
     map.flyTo([lng, lat], 14, {duration: 1});
 }
-
-
-
-// DB using class DB
-function db_try() {
-
-// Create a new database instance
-    const db = new Database();
-
-// Connect to the database
-    db.connect();
-
-// Perform database operations
-    let res = db.connection.query("SELECT * FROM fast_food_on_map.fast_food_restaurants limit 20")
-    console.log(res);
-// Disconnect from the database
-    db.disconnect();
-
-}
-
-const Database = require('./database.js');
-
-// Create a new database instance
-const db = new Database();
-
-// Connect to the database
-db.connect();
-
-// Function to execute a query
-function executeQuery(query, params, callback) {
-    db.connection.query(query, params, (err, results, fields) => {
-        if (err) {
-            console.error('Error executing query:', err);
-            return callback(err, null);
-        }
-        callback(null, results, fields);
-    });
-}
-
-const sql = 'SELECT * FROM fast_food_on_map.fast_food_restaurants limit 20';
-const params = [];
-
-
-
-// Disconnect from the database
-db.disconnect();
