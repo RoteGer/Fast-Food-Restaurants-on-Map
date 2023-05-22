@@ -4,7 +4,6 @@ fetch('http://localhost:3000/restaurants')
     .then(list  => {
         // Usage:
         const restaurantList = createGeoJSON(list);
-        console.log(restaurantList)
         // Pass the retrieved restaurantList to the DisplayMarker function
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function(position) {
@@ -14,7 +13,7 @@ fetch('http://localhost:3000/restaurants')
         }
     })
     .catch(error => {
-        console.error('Error retrieving restaurant data:', error);
+        console.log('Error retrieving restaurant data:', error);
     });
 
 function createGeoJSON(restaurantList) {
@@ -31,7 +30,7 @@ function createGeoJSON(restaurantList) {
                 },
                 geometry: {
                     type: 'Point',
-                    coordinates: [restaurant.latitude, restaurant.longitude]
+                    coordinates: [restaurant.longitude, restaurant.latitude]
                 }
             };
         })
@@ -41,7 +40,6 @@ function createGeoJSON(restaurantList) {
 
 
 function DisplayMarker(restaurantList) {
-    console.log(restaurantList)
     // Icon Option
     let iconOption = {
         iconUrl: 'images/marker.png',
@@ -57,6 +55,8 @@ function DisplayMarker(restaurantList) {
     let restaurantLayer = L.geoJSON(restaurantList, {
         onEachFeature: runForEachFeature,
         pointToLayer: function (feature, latlng) {
+            console.log(latlng)
+            console.log(feature)
             return L.marker(latlng, {icon: icon});
         }
     });
@@ -86,31 +86,37 @@ function customPopup(restaurant) {
 
 function generateRestaurantList(restaurantList) {
     let ul = document.querySelector('.restaurant-ul-list');
+    let i = 0;
+    for (let key in restaurantList) {
+        for (let key2 in restaurantList[key]) {
+            if (typeof restaurantList[key] !== 'string') {
 
-    restaurantList.forEach(function (restaurant) {
-        let li = document.createElement('li');
-        let div = document.createElement('div');
-        div.classList.add('restaurant-item');
-        let a = document.createElement('a');
-        let p = document.createElement('p');
-        a.innerText = restaurant.name;
-        a.href = '#';
-        a.addEventListener('click', () => {
-            flyToStore(restaurant);
-        })
+                let restaurant = restaurantList[key][key2].properties;
+                let li = document.createElement('li');
+                let div = document.createElement('div');
+                div.classList.add('restaurant-item');
+                let a = document.createElement('a');
+                let p = document.createElement('p');
+                a.innerText = restaurant.name;
+                a.href = '#';
+                a.addEventListener('click', () => {
+                    flyToStore(restaurantList[key][key2]);
+                })
 
-        p.innerText = restaurant.address;
-        div.appendChild(a);
-        div.appendChild(p);
-        li.appendChild(div);
-        ul.appendChild(li);
-    })
+                p.innerText = restaurant.address;
+                div.appendChild(a);
+                div.appendChild(p);
+                li.appendChild(div);
+                ul.appendChild(li);
+            }
+        }
+    }
 }
 
 
 function flyToStore(restaurant) {
-    let lat = restaurant.latitude;
-    let lng = restaurant.longitude;
+    let lat = restaurant.geometry.coordinates[0];
+    let lng = restaurant.geometry.coordinates[1];
 
     map.flyTo([lng, lat], 14, {duration: 1});
 }

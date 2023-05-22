@@ -25,7 +25,7 @@ app.listen(port, () => {
     console.log(`Server running on port ${port}`);
 });
 app.get('/restaurants', (req, res) => {
-    pool.query("SELECT * FROM fast_food_on_map.fast_food_restaurants LIMIT 20", (err, results) => {
+    pool.query("SELECT * FROM fast_food_on_map.fast_food_restaurants where country = \"US\" LIMIT 100;", (err, results) => {
         if (err) {
             console.error(err);
             res.status(500).json({ error: 'Error retrieving restaurants' });
