@@ -1,12 +1,28 @@
+class Restaurant {
+    constructor(latlng, name, address, phone) {
+        this.type = "Feature",
+            this.geometry = {
+                type: "Point",
+                coordinates: latlng
+            },
+            this.properties = {
+                name: name,
+                address: address,
+                phone: phone,
+            }
+
+    }
+}
+
 let map;
 fetch('http://localhost:3000/restaurants')
     .then(response => response.json())
-    .then(list  => {
+    .then(list => {
         // Usage:
         const restaurantList = createGeoJSON(list);
         // Pass the retrieved restaurantList to the DisplayMarker function
         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function(position) {
+            navigator.geolocation.getCurrentPosition(function (position) {
                 success(position, restaurantList); // Pass the position and restaurantList as parameters to the success function
 
             });
@@ -38,7 +54,6 @@ function createGeoJSON(restaurantList) {
 }
 
 
-
 function DisplayMarker(restaurantList) {
     // Icon Option
     let iconOption = {
@@ -55,8 +70,6 @@ function DisplayMarker(restaurantList) {
     let restaurantLayer = L.geoJSON(restaurantList, {
         onEachFeature: runForEachFeature,
         pointToLayer: function (feature, latlng) {
-            console.log(latlng)
-            console.log(feature)
             return L.marker(latlng, {icon: icon});
         }
     });
@@ -72,6 +85,13 @@ function success(position, restaurantList) {
     let layer = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png');
     layer.addTo(map);
     DisplayMarker(restaurantList);
+
+    // event listener
+    map.on('click', function (event) {
+        let {lat, lng} = event.latlng;
+        document.getElementById('latitude').value = lat;
+        document.getElementById('longitude').value = lng;
+    })
 }
 
 function customPopup(restaurant) {
@@ -120,3 +140,38 @@ function flyToStore(restaurant) {
 
     map.flyTo([lng, lat], 14, {duration: 1});
 }
+
+document.getElementById('submit-btn').addEventListener('click', function () {
+    let lat = document.getElementById('latitude').value;
+    let lng = document.getElementById('longitude').value;
+    let name = document.getElementById('restaurant-name').value;
+    let address = document.getElementById('address').value;
+    let phone = document.getElementById('phone').value;
+
+    let latlng = [lat, lng];
+    //let restaurant = new Restaurant(latlng, name, address, phone);
+
+    const restaurantData = {
+        name: name,
+        address: address,
+        lat: lat,
+        lng: lng
+    };
+
+    fetch('http://localhost:3000/restaurants', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(restaurantData)
+    })
+        .then(response => response.json())
+        .then(data => {
+            // Handle the response data here
+            console.log(data);
+        })
+        .catch(error => {
+            // Handle any errors that occurred during the request
+            console.log(error);
+        });
+})

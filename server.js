@@ -28,42 +28,43 @@ app.get('/restaurants', (req, res) => {
     pool.query("SELECT * FROM fast_food_on_map.fast_food_restaurants where country = \"US\" LIMIT 100;", (err, results) => {
         if (err) {
             console.error(err);
-            res.status(500).json({ error: 'Error retrieving restaurants' });
+            res.status(500).json({error: 'Error retrieving restaurants'});
         } else {
             res.json(results);
         }
     });
 });
 app.post('/restaurants', (req, res) => {
-    const { name, address, cuisine } = req.body;
-    const sql = 'INSERT INTO restaurants (name, address, cuisine) VALUES (?, ?, ?)';
-    const values = [name, address, cuisine];
+    const {name, address, lat, lng} = req.body;
+    const values = [name, address, lat, lng];
+    const sql = 'INSERT INTO fast_food_on_map.fast_food_restaurants (name, address, latitude, longitude) VALUES (name, address, latitude, longitude)';
 
     pool.query(sql, values, (err, result) => {
         if (err) {
             console.error(err);
-            res.status(500).json({ error: 'Error creating restaurant' });
+            res.status(500).json({error: 'Error creating restaurant', sql: sql});
         } else {
-            res.json({ message: 'Restaurant created successfully', id: result.insertId });
+            res.json({message: 'Restaurant created successfully', id: result.insertId});
         }
     });
 });
-app.put('/restaurants/:id', (req, res) => {
-    const { id } = req.params;
-    const { name, address, cuisine } = req.body;
-    const sql = 'UPDATE restaurants SET name = ?, address = ?, cuisine = ? WHERE id = ?';
-    const values = [name, address, cuisine, id];
 
-    pool.query(sql, values, (err, result) => {
-        if (err) {
-            console.error(err);
-            res.status(500).json({ error: 'Error updating restaurant' });
-        } else {
-            if (result.affectedRows > 0) {
-                res.json({ message: 'Restaurant updated successfully' });
-            } else {
-                res.status(404).json({ error: 'Restaurant not found' });
-            }
-        }
-    });
-});
+// app.put('/restaurants/:id', (req, res) => {
+//     const { id } = req.params;
+//     const { name, address, latlng } = req.body;
+//     const sql = 'UPDATE restaurants SET name = ?, address = ?, latlng = ? WHERE id = ?';
+//     const values = [name, address, cuisine, id];
+//
+//     pool.query(sql, values, (err, result) => {
+//         if (err) {
+//             console.error(err);
+//             res.status(500).json({ error: 'Error updating restaurant' });
+//         } else {
+//             if (result.affectedRows > 0) {
+//                 res.json({ message: 'Restaurant updated successfully' });
+//             } else {
+//                 res.status(404).json({ error: 'Restaurant not found' });
+//             }
+//         }
+//     });
+// });
