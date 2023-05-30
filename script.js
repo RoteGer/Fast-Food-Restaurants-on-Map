@@ -1,18 +1,18 @@
-class Restaurant {
-    constructor(latlng, name, address, phone) {
-        this.type = "Feature",
-            this.geometry = {
-                type: "Point",
-                coordinates: latlng
-            },
-            this.properties = {
-                name: name,
-                address: address,
-                phone: phone,
-            }
-
-    }
-}
+// class Restaurant {
+//     constructor(latlng, name, address, phone) {
+//         this.type = "Feature",
+//             this.geometry = {
+//                 type: "Point",
+//                 coordinates: latlng
+//             },
+//             this.properties = {
+//                 name: name,
+//                 address: address,
+//                 phone: phone,
+//             }
+//
+//     }
+// }
 
 let map;
 fetch('http://localhost:3000/restaurants')
@@ -141,15 +141,12 @@ function flyToStore(restaurant) {
     map.flyTo([lng, lat], 14, {duration: 1});
 }
 
+// When clicking on create restaurant button
 document.getElementById('submit-btn').addEventListener('click', function () {
     let lat = document.getElementById('latitude').value;
     let lng = document.getElementById('longitude').value;
     let name = document.getElementById('restaurant-name').value;
     let address = document.getElementById('address').value;
-    let phone = document.getElementById('phone').value;
-
-    let latlng = [lat, lng];
-    //let restaurant = new Restaurant(latlng, name, address, phone);
 
     const restaurantData = {
         name: name,
@@ -158,6 +155,7 @@ document.getElementById('submit-btn').addEventListener('click', function () {
         lng: lng
     };
 
+    // Add new restaurant call
     fetch('http://localhost:3000/restaurants', {
         method: 'POST',
         headers: {

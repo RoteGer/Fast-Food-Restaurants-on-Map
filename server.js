@@ -37,7 +37,7 @@ app.get('/restaurants', (req, res) => {
 app.post('/restaurants', (req, res) => {
     const {name, address, lat, lng} = req.body;
     const values = [name, address, lat, lng];
-    const sql = 'INSERT INTO fast_food_on_map.fast_food_restaurants (name, address, latitude, longitude) VALUES (name, address, latitude, longitude)';
+    const sql = 'INSERT INTO fast_food_on_map.fast_food_restaurants (name, address, latitude, longitude) VALUES (?, ?, ?, ?)';
 
     pool.query(sql, values, (err, result) => {
         if (err) {
