@@ -8,21 +8,19 @@
 /*** Form ***/
 
 input[type="text"],
-input[type="tel"],
-input[type="textarea"] {
+textarea {
     width: 70%;
     padding: 15px;
     border: 1px solid #ccc;
     border-radius: 4px;
     resize: vertical;
     font-size: 16px;
-    font-family: Tahoma, serif;
-    margin-left: 30px;
-    margin-top: 5px;
-    margin-bottom: 5px;
+    font-family: Tahoma, sans-serif;
+    margin: 5px 30px;
 }
 
-#submit-btn {
+#submit-btn,
+#toggle-btn {
     width: 80%;
     height: 50px;
     border: none;
@@ -33,11 +31,11 @@ input[type="textarea"] {
     transition: all 0.3s ease-in-out;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-weight: bold;
-    margin-left: 30px;
-
+    margin: 10px 30px;
 }
 
-#submit-btn:hover {
+#submit-btn:hover,
+#toggle-btn:hover {
     background-color: #649a2f;
 }
 
@@ -45,7 +43,7 @@ input[type="textarea"] {
 body {
     margin: 0;
     padding: 0;
-    font-family: Tahoma, serif;
+    font-family: Tahoma, sans-serif;
 }
 
 header {
@@ -100,7 +98,9 @@ main {
     width: 25%;
     background-color: #a9d2de;
     color: #fff;
-    overflow-y: auto; /* Add a scrollbar to the restaurant list */
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #ccc #fff;
 }
 
 .restaurant-list .header {
@@ -109,7 +109,7 @@ main {
     padding: 1rem;
     text-align: center;
     font-size: 20px;
-    font-family: Tahoma, serif;
+    font-family: Tahoma, sans-serif;
     text-shadow: 3px 3px 3px #ababab;
 }
 
@@ -119,9 +119,7 @@ main {
     margin: 0;
     max-height: 400px;
     overflow-y: auto;
-    scrollbar-width: thin; /* Add a scrollbar */
-    scrollbar-color: #ccc #fff; /* Set scrollbar color */
-    font-family: Tahoma, serif;
+    font-family: Tahoma, sans-serif;
 }
 
 .restaurant-list .restaurant-item {

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,14 +11,17 @@
     <link rel="stylesheet" href="style.css" type="text/css">
     <title>Geolocation API and Leaflet Library</title>
 </head>
+
 <body>
 <main>
     <div class="restaurant-list">
-        <div class="header"><h2>Fast Food on Map</h2></div>
-        <div class="add-new-restaurant">
+        <div class="header">
+            <h2>Fast Food on Map</h2>
+        </div>
+        <button id="add-toggle-btn">Add Restaurant</button> <!-- Toggle button for adding or closing the form -->
+        <div class="add-new-restaurant" style="display: none;"> <!-- Hidden by default -->
             <form class="restaurant-form">
                 <input type="text" id="restaurant-name" placeholder="Restaurant Name">
-                <input type="tel" id="phone" placeholder="Phone Number">
                 <input type="text" id="address" placeholder="Address"><br>
                 <input type="text" id="latitude" placeholder="Latitude">
                 <input type="text" id="longitude" placeholder="Longitude">
@@ -31,8 +35,30 @@
     <div id="map"></div>
 </main>
 </body>
+
 <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
         integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
 <script src="restaurants.js"></script>
 <script src="script.js"></script>
+<script>
+    var toggleBtn = document.getElementById('toggle-btn');
+    var addRestaurantForm = document.querySelector('.add-new-restaurant');
+    var closeBtn = document.getElementById('close-btn');
+
+    toggleBtn.addEventListener('click', function () {
+        if (toggleBtn.textContent === 'Add Restaurant') {
+            toggleBtn.textContent = 'Close';
+            addRestaurantForm.style.display = 'block'; // Show the form when the button is clicked
+        } else {
+            toggleBtn.textContent = 'Add Restaurant';
+            addRestaurantForm.style.display = 'none'; // Hide the form when the button is clicked again
+        }
+    });
+
+    closeBtn.addEventListener('click', function () {
+        toggleBtn.textContent = 'Add Restaurant';
+        addRestaurantForm.style.display = 'none'; // Hide the form when the close button is clicked
+    });
+</script>
+
 </html>
