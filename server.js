@@ -49,22 +49,35 @@ app.post('/restaurants', (req, res) => {
     });
 });
 
-// app.put('/restaurants/:id', (req, res) => {
-//     const { id } = req.params;
-//     const { name, address, latlng } = req.body;
-//     const sql = 'UPDATE restaurants SET name = ?, address = ?, latlng = ? WHERE id = ?';
-//     const values = [name, address, cuisine, id];
+// app.put('/restaurants/:name', (req, res) => {
+//     const { name, address } = req.body;
+//     const values = [`%${name}%`, `%${address}%`];
+//     console.log(values)
+//     const sql = 'SELECT * FROM fast_food_on_map.fast_food_restaurants WHERE name LIKE ? AND address LIKE ? LIMIT 100';
 //
-//     pool.query(sql, values, (err, result) => {
+//     pool.query(sql, values, (err, res) => {
 //         if (err) {
 //             console.error(err);
 //             res.status(500).json({ error: 'Error updating restaurant' });
 //         } else {
-//             if (result.affectedRows > 0) {
-//                 res.json({ message: 'Restaurant updated successfully' });
-//             } else {
-//                 res.status(404).json({ error: 'Restaurant not found' });
-//             }
+//             console.log(res);
+//             res.json(res);
 //         }
+//
 //     });
 // });
+
+app.get('/restaurants/:Search', (req, res) => {
+    const { name, address } = req.query;
+    const values = [`%${name}%`, `%${address}%`];
+    const sql = 'SELECT * FROM fast_food_on_map.fast_food_restaurants WHERE name LIKE ? AND address LIKE ? LIMIT 100';
+    pool.query(sql, values, (err, results) => {
+        if (err) {
+            console.error(err);
+            res.status(500).json({ error: 'Error retrieving restaurants', sql:sql });
+        } else {
+            console.log(results);
+            res.json(results);
+        }
+    });
+});

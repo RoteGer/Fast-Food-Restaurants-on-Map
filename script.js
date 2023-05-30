@@ -1,19 +1,3 @@
-// class Restaurant {
-//     constructor(latlng, name, address, phone) {
-//         this.type = "Feature",
-//             this.geometry = {
-//                 type: "Point",
-//                 coordinates: latlng
-//             },
-//             this.properties = {
-//                 name: name,
-//                 address: address,
-//                 phone: phone,
-//             }
-//
-//     }
-// }
-
 let map;
 fetch('http://localhost:3000/restaurants')
     .then(response => response.json())
@@ -172,4 +156,31 @@ document.getElementById('submit-btn').addEventListener('click', function () {
             // Handle any errors that occurred during the request
             console.log(error);
         });
-})
+});
+
+// Search restaurant --- not working yet
+document.getElementById('search-btn').addEventListener('click', function () {
+    let name = document.getElementById('search-by-name').value;
+    let address = document.getElementById('search-by-address').value;
+
+    // Build the query string with the search parameters
+    let queryString = `?name=${encodeURIComponent(name)}&address=${encodeURIComponent(address)}`;
+
+    // Search restaurant call
+    fetch(`http://localhost:3000/restaurants:Search${queryString}`)
+        .then(list => {
+            console.log(list)
+            // Usage:
+            const restaurantList = createGeoJSON(list);
+            // Pass the retrieved restaurantList to the DisplayMarker function
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    success(position, restaurantList); // Pass the position and restaurantList as parameters to the success function
+
+                });
+            }
+        })
+        .catch(error => {
+            console.log('Error retrieving restaurant data:', error);
+        });
+});
