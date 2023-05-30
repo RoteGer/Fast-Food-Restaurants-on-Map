@@ -28,6 +28,14 @@
                 <button type="button" id="submit-btn">Create Restaurant</button>
             </form>
         </div>
+        <button id="search-toggle-btn">Search Restaurant</button> <!-- Toggle button for adding or closing the form -->
+        <div class="search-restaurant" style="display: none;"> <!-- Hidden by default -->
+            <form class="search-form">
+                <input type="text" id="search-by-name" placeholder="Restaurant Name">
+                <input type="text" id="search-by-address" placeholder="Address"><br>
+                <button type="button" id="search-btn">Search</button>
+            </form>
+        </div>
         <ul class='restaurant-ul-list'>
             <!---append list-->
         </ul>
@@ -41,23 +49,42 @@
 <script src="restaurants.js"></script>
 <script src="script.js"></script>
 <script>
-    var toggleBtn = document.getElementById('toggle-btn');
+    var addToggleBtn = document.getElementById('add-toggle-btn');
     var addRestaurantForm = document.querySelector('.add-new-restaurant');
-    var closeBtn = document.getElementById('close-btn');
+    var closeAddBtn = document.getElementById('close-add-btn');
 
-    toggleBtn.addEventListener('click', function () {
-        if (toggleBtn.textContent === 'Add Restaurant') {
-            toggleBtn.textContent = 'Close';
+    var searchToggleBtn = document.getElementById('search-toggle-btn');
+    var searchRestaurantForm = document.querySelector('.search-restaurant');
+    var closeSearchBtn = document.getElementById('close-search-btn');
+
+    addToggleBtn.addEventListener('click', function () {
+        if (addToggleBtn.textContent === 'Add Restaurant') {
+            addToggleBtn.textContent = 'Close';
             addRestaurantForm.style.display = 'block'; // Show the form when the button is clicked
         } else {
-            toggleBtn.textContent = 'Add Restaurant';
+            addToggleBtn.textContent = 'Add Restaurant';
             addRestaurantForm.style.display = 'none'; // Hide the form when the button is clicked again
         }
     });
 
-    closeBtn.addEventListener('click', function () {
-        toggleBtn.textContent = 'Add Restaurant';
+    searchToggleBtn.addEventListener('click', function () {
+        if (searchToggleBtn.textContent === 'Search Restaurant') {
+            searchToggleBtn.textContent = 'Close';
+            searchRestaurantForm.style.display = 'block'; // Show the form when the button is clicked
+        } else {
+            searchToggleBtn.textContent = 'Search Restaurant';
+            searchRestaurantForm.style.display = 'none'; // Hide the form when the button is clicked again
+        }
+    });
+
+    closeAddBtn.addEventListener('click', function () {
+        addToggleBtn.textContent = 'Add Restaurant';
         addRestaurantForm.style.display = 'none'; // Hide the form when the close button is clicked
+    });
+
+    closeSearchBtn.addEventListener('click', function () {
+        searchToggleBtn.textContent = 'Search Restaurant';
+        searchRestaurantForm.style.display = 'none'; // Hide the form when the close button is clicked
     });
 </script>
 

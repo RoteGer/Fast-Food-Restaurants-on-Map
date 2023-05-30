@@ -20,7 +20,9 @@ textarea {
 }
 
 #submit-btn,
-#toggle-btn {
+#search-toggle-btn,
+#search-btn,
+#add-toggle-btn {
     width: 80%;
     height: 50px;
     border: none;
@@ -35,7 +37,9 @@ textarea {
 }
 
 #submit-btn:hover,
-#toggle-btn:hover {
+#search-toggle-btn:hover,
+#search-btn:hover,
+#add-toggle-btn:hover {
     background-color: #649a2f;
 }
 
