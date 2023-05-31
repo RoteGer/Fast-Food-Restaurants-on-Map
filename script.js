@@ -167,16 +167,17 @@ document.getElementById('search-btn').addEventListener('click', function () {
     let queryString = `?name=${encodeURIComponent(name)}&address=${encodeURIComponent(address)}`;
 
     // Search restaurant call
-    fetch(`http://localhost:3000/restaurants:Search${queryString}`)
+    fetch(`http://localhost:3000/restaurants/Search${queryString}`)
+        .then(response => response.json())
         .then(list => {
-            console.log(list)
+            console.log(list);
             // Usage:
             const restaurantList = createGeoJSON(list);
             // Pass the retrieved restaurantList to the DisplayMarker function
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function (position) {
+                    map.remove();
                     success(position, restaurantList); // Pass the position and restaurantList as parameters to the success function
-
                 });
             }
         })

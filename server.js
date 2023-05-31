@@ -68,15 +68,16 @@ app.post('/restaurants', (req, res) => {
 // });
 
 app.get('/restaurants/:Search', (req, res) => {
+    const { Search } = req.params;
     const { name, address } = req.query;
     const values = [`%${name}%`, `%${address}%`];
-    const sql = 'SELECT * FROM fast_food_on_map.fast_food_restaurants WHERE name LIKE ? AND address LIKE ? LIMIT 100';
+    const sql =
+        'SELECT * FROM fast_food_on_map.fast_food_restaurants WHERE name LIKE ? AND address LIKE ? LIMIT 200';
     pool.query(sql, values, (err, results) => {
         if (err) {
             console.error(err);
-            res.status(500).json({ error: 'Error retrieving restaurants', sql:sql });
+            res.status(500).json({ error: 'Error retrieving restaurants', sql: sql });
         } else {
-            console.log(results);
             res.json(results);
         }
     });

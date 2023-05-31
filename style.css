@@ -27,7 +27,7 @@ textarea {
     height: 50px;
     border: none;
     border-radius: 25px;
-    background-color: #7a7a7a;
+    background-color: #FF6F61;
     color: #fff;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
@@ -40,7 +40,7 @@ textarea {
 #search-toggle-btn:hover,
 #search-btn:hover,
 #add-toggle-btn:hover {
-    background-color: #649a2f;
+    background-color: #FF1E00;
 }
 
 /*** Page ***/
@@ -54,7 +54,7 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #ffffff;
+    background-color: #F8F9FA;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     padding: 10px 50px;
 }
@@ -91,7 +91,7 @@ nav a {
 }
 
 nav a:hover {
-    color: #df915b;
+    color: #FF6F61;
 }
 
 main {
@@ -100,15 +100,15 @@ main {
 
 .restaurant-list {
     width: 25%;
-    background-color: #a9d2de;
-    color: #fff;
+    background-color: #f6f5f5;
+    color: #222;
     overflow-y: auto;
     scrollbar-width: thin;
     scrollbar-color: #ccc #fff;
 }
 
 .restaurant-list .header {
-    background-color: #faa12a;
+    background-color: #FF6F61;
     color: #fff;
     padding: 1rem;
     text-align: center;
@@ -139,11 +139,11 @@ main {
 .restaurant-list .store-item a {
     text-decoration: none;
     font-size: 18px;
-    color: #00c46a;
+    color: #FF6F61;
     font-weight: bold;
 }
 
 .restaurant-list .store-item p {
     font-size: 12px;
-    color: #fff;
+    color: #222;
 }
