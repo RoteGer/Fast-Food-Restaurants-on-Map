@@ -119,7 +119,7 @@
             const password = document.getElementById('loginPassword').value;
 
             // Perform login API request
-            fetch('/login', {
+            fetch('http://localhost:3000/restaurants/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -136,6 +136,7 @@
                 } else {
                     messageElement.textContent = data.message;
                     messageElement.className = 'success';
+                    window.location.href = 'index.html';
                 }
                 messageElement.style.display = 'block';
             })
@@ -148,32 +149,29 @@
             const username = document.getElementById('registerUsername').value;
             const password = document.getElementById('registerPassword').value;
 
-            // Perform registration API request
-            fetch('/register', {
+            fetch('http://localhost:3000/restaurants/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ username, password })
+                body: JSON.stringify({username, password})
             })
-            .then(response => response.json())
-            .then(data => {
-                // Display registration message
-                const messageElement = document.getElementById('message');
-                if (data.error) {
-                    messageElement.textContent = data.error;
-                    messageElement.className = 'error';
-                } else {
-                    messageElement.textContent = data.message;
-                    messageElement.className = 'success';
-                }
-                messageElement.style.display = 'block';
-            })
-            .catch(error => {
-                console.error(error);
-            });
+                .then(response => response.json())
+                .then(data => {
+                    const messageElement = document.getElementById('message');
+                    if (data.error) {
+                        messageElement.textContent = data.error;
+                        messageElement.className = 'error';
+                    } else {
+                        messageElement.textContent = data.message;
+                        messageElement.className = 'success';
+                    }
+                    messageElement.style.display = 'block';
+                })
+                .catch(error => {
+                    console.error(error);
+                });
         }
-
         function switchToRegistration() {
             document.getElementById('loginPage').style.display = 'none';
             document.getElementById('registrationPage').style.display = 'block';

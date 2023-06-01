@@ -158,7 +158,7 @@ document.getElementById('submit-btn').addEventListener('click', function () {
         });
 });
 
-// Search restaurant --- not working yet
+// Search restaurant
 document.getElementById('search-btn').addEventListener('click', function () {
     let name = document.getElementById('search-by-name').value;
     let address = document.getElementById('search-by-address').value;
