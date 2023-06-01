@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login and Registration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            width: 300px;
+            padding: 20px;
+            background-color: #f2f2f2;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            font-weight: bold;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        .form-group button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .form-group button:hover {
+            background-color: #45a049;
+        }
+
+        .form-group .error {
+            color: red;
+        }
+
+        .form-group .success {
+            color: green;
+        }
+
+        .form-group .switch-page {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .form-group .switch-page a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="loginPage">
+            <h2>Login</h2>
+            <div class="form-group">
+                <label for="loginUsername">Username:</label>
+                <input type="text" id="loginUsername" placeholder="Enter your username">
+            </div>
+            <div class="form-group">
+                <label for="loginPassword">Password:</label>
+                <input type="password" id="loginPassword" placeholder="Enter your password">
+            </div>
+            <div class="form-group">
+                <button onclick="login()">Login</button>
+            </div>
+            <div class="form-group switch-page">
+                Don't have an account? <a href="#" onclick="switchToRegistration()">Register here</a>
+            </div>
+        </div>
+        <div id="registrationPage" style="display: none;">
+            <h2>Registration</h2>
+            <div class="form-group">
+                <label for="registerUsername">Username:</label>
+                <input type="text" id="registerUsername" placeholder="Choose a username">
+            </div>
+            <div class="form-group">
+                <label for="registerPassword">Password:</label>
+                <input type="password" id="registerPassword" placeholder="Choose a password">
+            </div>
+            <div class="form-group">
+                <button onclick="register()">Register</button>
+            </div>
+            <div class="form-group switch-page">
+                Already have an account? <a href="#" onclick="switchToLogin()">Login here</a>
+            </div>
+        </div>
+        <div id="message" style="display: none;"></div>
+    </div>
+
+    <script>
+        function login() {
+            const username = document.getElementById('loginUsername').value;
+            const password = document.getElementById('loginPassword').value;
+
+            // Perform login API request
+            fetch('/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username, password })
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Display login message
+                const messageElement = document.getElementById('message');
+                if (data.error) {
+                    messageElement.textContent = data.error;
+                    messageElement.className = 'error';
+                } else {
+                    messageElement.textContent = data.message;
+                    messageElement.className = 'success';
+                }
+                messageElement.style.display = 'block';
+            })
+            .catch(error => {
+                console.error(error);
+            });
+        }
+
+        function register() {
+            const username = document.getElementById('registerUsername').value;
+            const password = document.getElementById('registerPassword').value;
+
+            // Perform registration API request
+            fetch('/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username, password })
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Display registration message
+                const messageElement = document.getElementById('message');
+                if (data.error) {
+                    messageElement.textContent = data.error;
+                    messageElement.className = 'error';
+                } else {
+                    messageElement.textContent = data.message;
+                    messageElement.className = 'success';
+                }
+                messageElement.style.display = 'block';
+            })
+            .catch(error => {
+                console.error(error);
+            });
+        }
+
+        function switchToRegistration() {
+            document.getElementById('loginPage').style.display = 'none';
+            document.getElementById('registrationPage').style.display = 'block';
+            document.getElementById('message').style.display = 'none';
+        }
+
+        function switchToLogin() {
+            document.getElementById('loginPage').style.display = 'block';
+            document.getElementById('registrationPage').style.display = 'none';
+            document.getElementById('message').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
