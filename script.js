@@ -129,11 +129,13 @@ document.getElementById('submit-btn').addEventListener('click', function () {
     let lat = document.getElementById('latitude').value;
     let lng = document.getElementById('longitude').value;
     let name = document.getElementById('restaurant-name').value;
+    let website = document.getElementById('website').value;
     let address = document.getElementById('address').value;
 
     const restaurantData = {
         name: name,
         address: address,
+        website:website,
         lat: lat,
         lng: lng
     };

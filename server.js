@@ -70,9 +70,9 @@ app.get('/restaurants', (req, res) => {
     });
 });
 app.post('/restaurants', (req, res) => {
-    const {name, address, lat, lng} = req.body;
-    const values = [name, address, lat, lng];
-    const sql = 'INSERT INTO fast_food_on_map.fast_food_restaurants (name, address, latitude, longitude) VALUES (?, ?, ?, ?)';
+    const {name, address, website, lat, lng} = req.body;
+    const values = [name, address, website, lat, lng];
+    const sql = 'INSERT INTO fast_food_on_map.fast_food_restaurants (name, address, websites, latitude, longitude) VALUES (?, ?, ?, ?, ?)';
 
     pool.query(sql, values, (err, result) => {
         if (err) {
