@@ -65,7 +65,7 @@ function success(position, restaurantList) {
     const lat = position.coords.latitude;
     const lng = position.coords.longitude;
 
-    map = L.map('map', {center: [lat, lng], zoom: 1});
+    map = L.map('map', {center: [lat, lng], zoom: 2});
     let layer = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png');
     layer.addTo(map);
     DisplayMarker(restaurantList);
@@ -90,7 +90,6 @@ function customPopup(restaurant) {
 
 function generateRestaurantList(restaurantList) {
     let ul = document.querySelector('.restaurant-ul-list');
-    let i = 0;
     for (let key in restaurantList) {
         for (let key2 in restaurantList[key]) {
             if (typeof restaurantList[key] !== 'string') {
@@ -178,6 +177,7 @@ document.getElementById('search-btn').addEventListener('click', function () {
                 navigator.geolocation.getCurrentPosition(function (position) {
                     map.remove();
                     success(position, restaurantList); // Pass the position and restaurantList as parameters to the success function
+                    generateRestaurantList(restaurantList);
                 });
             }
         })
