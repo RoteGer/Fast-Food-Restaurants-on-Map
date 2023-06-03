@@ -3,7 +3,7 @@ GIS web project displaying fast food restaurants in the USA on a map.
 
 ### Data:
 * MySQL Database
-* Connected with Epress (node.js framework) 
+* Connected with Express (node.js framework) 
 * Restaurants information: https://www.kaggle.com/datasets/thedevastator/fast-food-restaurants-in-the-united-states
 
 ### Website's capabilities:
