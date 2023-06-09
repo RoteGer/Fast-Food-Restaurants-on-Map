@@ -163,9 +163,10 @@ document.getElementById('submit-btn').addEventListener('click', function () {
 document.getElementById('search-btn').addEventListener('click', function () {
     let name = document.getElementById('search-by-name').value;
     let address = document.getElementById('search-by-address').value;
+    let province = document.getElementById('search-by-province').value;
 
     // Build the query string with the search parameters
-    let queryString = `?name=${encodeURIComponent(name)}&address=${encodeURIComponent(address)}`;
+    let queryString = `?name=${encodeURIComponent(name)}&address=${encodeURIComponent(address)}&province=${encodeURIComponent(province)}`;
 
     // Search restaurant call
     fetch(`http://localhost:3000/restaurants/Search${queryString}`)

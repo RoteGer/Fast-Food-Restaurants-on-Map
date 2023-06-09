@@ -86,10 +86,10 @@ app.post('/restaurants', (req, res) => {
 
 app.get('/restaurants/:Search', (req, res) => {
     const { Search } = req.params;
-    const { name, address } = req.query;
-    const values = [`%${name}%`, `%${address}%`];
+    const { name, address, province } = req.query;
+    const values = [`%${name}%`, `%${address}%`, `%${province}%`];
     const sql =
-        'SELECT * FROM fast_food_on_map.fast_food_restaurants WHERE name LIKE ? AND address LIKE ? LIMIT 400';
+        'SELECT * FROM fast_food_on_map.fast_food_restaurants WHERE name LIKE ? AND address LIKE ? AND province LIKE ? LIMIT 400';
     pool.query(sql, values, (err, results) => {
         if (err) {
             console.error(err);
