@@ -163,16 +163,14 @@ document.getElementById('submit-btn').addEventListener('click', function () {
 document.getElementById('search-btn').addEventListener('click', function () {
     let name = document.getElementById('search-by-name').value;
     let address = document.getElementById('search-by-address').value;
-    let province = document.getElementById('search-by-province').value;
 
     // Build the query string with the search parameters
-    let queryString = `?name=${encodeURIComponent(name)}&address=${encodeURIComponent(address)}&province=${encodeURIComponent(province)}`;
+    let queryString = `?name=${encodeURIComponent(name)}&address=${encodeURIComponent(address)}`;
 
     // Search restaurant call
     fetch(`http://localhost:3000/restaurants/Search${queryString}`)
         .then(response => response.json())
         .then(list => {
-            console.log(list);
             // Usage:
             const restaurantList = createGeoJSON(list);
             // Pass the retrieved restaurantList to the DisplayMarker function
