@@ -35,7 +35,6 @@ app.post("/restaurants/login", (req, res) => {
       res.status(500).json({ error: "Error logging in" });
     } else {
       if (results.length > 0) {
-        res.json({ message: "Login successful" });
         res.redirect("/restaurants");
       } else {
         res.status(401).json({ error: "Invalid credentials" });
@@ -55,7 +54,6 @@ app.post("/restaurants/register", (req, res) => {
       console.error(err);
       res.status(500).json({ error: "Error registering user" });
     } else {
-      res.json({ message: "Registration successful", id: result.insertId });
       res.redirect("/login");
     }
   });
