@@ -49,12 +49,10 @@ app.post("/restaurants/register", (req, res) => {
   const sql = "INSERT INTO users (username, password) VALUES (?, ?)";
   const values = [username, password];
 
-  pool.query(sql, values, (err, result) => {
+  pool.query(sql, values, (err, res) => {
     if (err) {
       console.error(err);
       res.status(500).json({ error: "Error registering user" });
-    } else {
-      res.redirect("/login");
     }
   });
 });
