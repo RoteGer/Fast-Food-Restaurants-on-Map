@@ -52,6 +52,8 @@ app.post("/restaurants/register", (req, res) => {
     if (err) {
       console.error(err);
       res.status(500).json({ error: "Error registering user" });
+    } else {
+      res.json({ message: "User registered successfully" });
     }
   });
 });
