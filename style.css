@@ -2,7 +2,7 @@
 #map {
     width: 85%;
     margin: 10px;
-    background-image: url("background-pic.jpg");
+    background-image: url("images/background-pic.jpg");
     background-size: cover;
 }
 
@@ -51,7 +51,7 @@ textarea {
 /*** Page ***/
 body {
     font-family: Tahoma, sans-serif;
-    background: url("background-pic.jpg");
+    background: url("images/background-pic.jpg");
     background-size: cover;
     margin: 55px;
 }
