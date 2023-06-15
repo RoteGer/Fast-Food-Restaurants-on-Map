@@ -151,6 +151,8 @@ document.getElementById('submit-btn').addEventListener('click', function () {
         .then(response => response.json())
         .then(data => {
             // Handle the response data here
+            alert ("Added restaurant '" + name + "' successfully")
+
             console.log(data);
         })
         .catch(error => {
@@ -186,3 +188,34 @@ document.getElementById('search-btn').addEventListener('click', function () {
             console.log('Error retrieving restaurant data:', error);
         });
 });
+
+// Delete restaurant
+document.getElementById('delete-btn').addEventListener('click', function () {
+    let name = document.getElementById('delete-by-name').value;
+    let address = document.getElementById('delete-by-address').value;
+
+    const restaurantData = {
+        name: name,
+        address: address,
+    };
+
+    // Add new restaurant call
+    fetch('http://localhost:3000/restaurants/delete', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(restaurantData)
+    })
+        .then(response => response.json())
+        .then(data => {
+            // Handle the response data here
+            alert ("Deleted restaurant '" + name + "' at address '" + address + "' successfully")
+            console.log(data);
+        })
+        .catch(error => {
+            // Handle any errors that occurred during the request
+            console.log(error);
+        });
+});
+

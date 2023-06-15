@@ -22,7 +22,10 @@ textarea {
 #submit-btn,
 #search-toggle-btn,
 #search-btn,
-#add-toggle-btn {
+#add-toggle-btn,
+#delete-btn,
+#delete-toggle-btn,
+#search-btn {
     width: 80%;
     height: 50px;
     border: none;

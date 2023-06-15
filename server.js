@@ -48,14 +48,15 @@ app.post("/restaurants/register", (req, res) => {
   const { username, password } = req.body;
   const sql = "INSERT INTO users (username, password) VALUES (?, ?)";
   const values = [username, password];
-
-  pool.query(sql, values, (err, res) => {
+  pool.query(sql, values, (err, result) => {
     if (err) {
       console.error(err);
       res.status(500).json({ error: "Error registering user" });
     }
   });
 });
+
+// initial fetch
 app.get("/restaurants", (req, res) => {
   pool.query(
     'SELECT * FROM fast_food_on_map.fast_food_restaurants where country = "US" LIMIT 100;',
@@ -69,6 +70,8 @@ app.get("/restaurants", (req, res) => {
     }
   );
 });
+
+// add restaurant
 app.post("/restaurants", (req, res) => {
   const { name, address, website, lat, lng } = req.body;
   const values = [name, address, website, lat, lng];
@@ -88,6 +91,7 @@ app.post("/restaurants", (req, res) => {
   });
 });
 
+// search restaurants
 app.get("/restaurants/:Search", (req, res) => {
   const { Search } = req.params;
   const { name, address } = req.query;
@@ -103,3 +107,25 @@ app.get("/restaurants/:Search", (req, res) => {
     }
   });
 });
+
+// delete restaurant
+app.post("/restaurants/delete", (req, res) => {
+  const { name, address } = req.body;
+  const values = [name, address];
+  const sql =
+      "DELETE FROM fast_food_on_map.fast_food_restaurants WHERE name = ? AND address = ?";
+
+  pool.query(sql, values, (err, result) => {
+    if (err) {
+      console.error(err);
+      res.status(500).json({ error: "Error deleting restaurant", sql: sql });
+    } else {
+      res.json({
+        // message: "Restaurant deleted successfully",
+        message: sql,
+        id: result.insertId,
+      });
+    }
+  });
+});
+

@@ -37,6 +37,14 @@
                 <button type="button" id="search-btn">Search</button>
             </form>
         </div>
+        <button id="delete-toggle-btn">Delete Restaurant</button> <!-- Toggle button for adding or closing the form -->
+        <div class="delete-restaurant" style="display: none;"> <!-- Hidden by default -->
+            <form class="delete-restaurant-form">
+                <input type="text" id="delete-by-name" placeholder="Restaurant Name">
+                <input type="text" id="delete-by-address" placeholder="Address"><br>
+                <button type="button" id="delete-btn">Delete</button>
+            </form>
+        </div>
         <ul class='restaurant-ul-list'>
             <!---append list-->
         </ul>
@@ -56,6 +64,10 @@
     var searchToggleBtn = document.getElementById('search-toggle-btn');
     var searchRestaurantForm = document.querySelector('.search-restaurant');
     var closeSearchBtn = document.getElementById('close-search-btn');
+
+    var deleteToggleBtn = document.getElementById('delete-toggle-btn');
+    var deleteRestaurantForm = document.querySelector('.delete-restaurant');
+    var closeDeleteBtn = document.getElementById('close-delete-btn');
 
     addToggleBtn.addEventListener('click', function () {
         if (addToggleBtn.textContent === 'Add Restaurant') {
@@ -77,6 +89,16 @@
         }
     });
 
+    deleteToggleBtn.addEventListener('click', function () {
+        if (deleteToggleBtn.textContent === 'Delete Restaurant') {
+            deleteToggleBtn.textContent = 'Close';
+            deleteRestaurantForm.style.display = 'block'; // Show the form when the button is clicked
+        } else {
+            deleteToggleBtn.textContent = 'Delete Restaurant';
+            deleteRestaurantForm.style.display = 'none'; // Hide the form when the button is clicked again
+        }
+    });
+
     closeAddBtn.addEventListener('click', function () {
         addToggleBtn.textContent = 'Add Restaurant';
         addRestaurantForm.style.display = 'none'; // Hide the form when the close button is clicked
@@ -85,6 +107,11 @@
     closeSearchBtn.addEventListener('click', function () {
         searchToggleBtn.textContent = 'Search Restaurant';
         searchRestaurantForm.style.display = 'none'; // Hide the form when the close button is clicked
+    });
+
+    closeDeleteBtn.addEventListener('click', function () {
+        deleteToggleBtn.textContent = 'Delete Restaurant';
+        deleteRestaurantForm.style.display = 'none'; // Hide the form when the close button is clicked
     });
 </script>
 
