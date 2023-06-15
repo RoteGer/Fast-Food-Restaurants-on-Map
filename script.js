@@ -219,3 +219,40 @@ document.getElementById('delete-btn').addEventListener('click', function () {
         });
 });
 
+// Update restaurant
+document.getElementById('update-btn').addEventListener('click', function () {
+    let old_name = document.getElementById('old-name').value;
+    let old_address = document.getElementById('old-address').value;
+
+    // values that can be updated
+    let new_name = document.getElementById('new-name').value;
+    let new_address = document.getElementById('new-address').value;
+    let new_website = document.getElementById('new-name').value;
+
+    const updateRestaurantData = {
+        new_name: new_name,
+        new_address: new_address,
+        new_website: new_website,
+        old_name: old_name,
+        old_address: old_address,
+    };
+
+    // Add new restaurant call
+    fetch('http://localhost:3000/restaurants/update', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(updateRestaurantData)
+    })
+        .then(response => response.json())
+        .then(data => {
+            // Handle the response data here
+            alert ("Updated restaurant '" + old_name + "' at address '" + old_address + "' successfully")
+            console.log(data);
+        })
+        .catch(error => {
+            // Handle any errors that occurred during the request
+            console.log(error);
+        });
+});

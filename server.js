@@ -56,7 +56,7 @@ app.post("/restaurants/register", (req, res) => {
   });
 });
 
-// initial fetch
+// Initial fetch
 app.get("/restaurants", (req, res) => {
   pool.query(
     'SELECT * FROM fast_food_on_map.fast_food_restaurants where country = "US" LIMIT 100;',
@@ -71,7 +71,7 @@ app.get("/restaurants", (req, res) => {
   );
 });
 
-// add restaurant
+// Add restaurant
 app.post("/restaurants", (req, res) => {
   const { name, address, website, lat, lng } = req.body;
   const values = [name, address, website, lat, lng];
@@ -91,7 +91,7 @@ app.post("/restaurants", (req, res) => {
   });
 });
 
-// search restaurants
+// Search restaurants
 app.get("/restaurants/:Search", (req, res) => {
   const { Search } = req.params;
   const { name, address } = req.query;
@@ -108,7 +108,7 @@ app.get("/restaurants/:Search", (req, res) => {
   });
 });
 
-// delete restaurant
+// Delete restaurant
 app.post("/restaurants/delete", (req, res) => {
   const { name, address } = req.body;
   const values = [name, address];
@@ -119,6 +119,27 @@ app.post("/restaurants/delete", (req, res) => {
     if (err) {
       console.error(err);
       res.status(500).json({ error: "Error deleting restaurant", sql: sql });
+    } else {
+      res.json({
+        message: "Restaurant deleted successfully",
+        id: result.insertId,
+      });
+    }
+  });
+});
+
+// Update restaurant
+app.post("/restaurants/update", (req, res) => {
+  const { new_name, new_address, new_website, old_name, old_address } = req.body;
+  const values = [new_name, new_address, new_website, old_name, old_address];
+  console.log(req.body)
+  const sql =
+      "UPDATE fast_food_on_map.fast_food_restaurants SET name = ?, address = ?, websites = ? WHERE name = ? AND address = ?";
+
+  pool.query(sql, values, (err, result) => {
+    if (err) {
+      console.error(err);
+      res.status(500).json({ error: "Error updating restaurant", sql: sql });
     } else {
       res.json({
         // message: "Restaurant deleted successfully",

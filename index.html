@@ -18,7 +18,7 @@
         <div class="header">
             <h2>Fast Food on Map</h2>
         </div>
-        <button id="add-toggle-btn">Add Restaurant</button> <!-- Toggle button for adding or closing the form -->
+        <button id="add-toggle-btn">Add</button> <!-- Toggle button for adding or closing the form -->
         <div class="add-new-restaurant" style="display: none;"> <!-- Hidden by default -->
             <form class="restaurant-form">
                 <input type="text" id="restaurant-name" placeholder="Restaurant Name">
@@ -26,23 +26,34 @@
                 <input type="text" id="website" placeholder="Website"><br>
                 <input type="text" id="latitude" placeholder="Latitude">
                 <input type="text" id="longitude" placeholder="Longitude">
-                <button type="button" id="submit-btn">Add</button>
+                <button type="button" id="submit-btn">Add Restaurant</button>
             </form>
         </div>
-        <button id="search-toggle-btn">Search Restaurant</button> <!-- Toggle button for adding or closing the form -->
+        <button id="search-toggle-btn">Search</button> <!-- Toggle button for adding or closing the form -->
         <div class="search-restaurant" style="display: none;"> <!-- Hidden by default -->
             <form class="search-form">
                 <input type="text" id="search-by-name" placeholder="Restaurant Name">
                 <input type="text" id="search-by-address" placeholder="Address"><br>
-                <button type="button" id="search-btn">Search</button>
+                <button type="button" id="search-btn">Search Restaurant</button>
             </form>
         </div>
-        <button id="delete-toggle-btn">Delete Restaurant</button> <!-- Toggle button for adding or closing the form -->
+        <button id="delete-toggle-btn">Delete</button> <!-- Toggle button for adding or closing the form -->
         <div class="delete-restaurant" style="display: none;"> <!-- Hidden by default -->
             <form class="delete-restaurant-form">
                 <input type="text" id="delete-by-name" placeholder="Restaurant Name">
                 <input type="text" id="delete-by-address" placeholder="Address"><br>
-                <button type="button" id="delete-btn">Delete</button>
+                <button type="button" id="delete-btn">Delete Restaurant</button>
+            </form>
+        </div>
+        <button id="update-toggle-btn">Update</button> <!-- Toggle button for adding or closing the form -->
+        <div class="update-restaurant" style="display: none;"> <!-- Hidden by default -->
+            <form class="update-restaurant-form">
+                <input type="text" id="old-name" placeholder="Old Restaurant Name">
+                <input type="text" id="old-address" placeholder="Old Address"><br>
+                <input type="text" id="new-name" placeholder="New Name"><br>
+                <input type="text" id="new-address" placeholder="New Address"><br>
+                <input type="text" id="new-website" placeholder="New website"><br>
+                <button type="button" id="update-btn">Update Restaurant</button>
             </form>
         </div>
         <ul class='restaurant-ul-list'>
@@ -69,37 +80,52 @@
     var deleteRestaurantForm = document.querySelector('.delete-restaurant');
     var closeDeleteBtn = document.getElementById('close-delete-btn');
 
+    var updateToggleBtn = document.getElementById('update-toggle-btn');
+    var updateRestaurantForm = document.querySelector('.update-restaurant');
+    var closeUpdateBtn = document.getElementById('close-update-btn');
+
     addToggleBtn.addEventListener('click', function () {
-        if (addToggleBtn.textContent === 'Add Restaurant') {
+        if (addToggleBtn.textContent === 'Add') {
             addToggleBtn.textContent = 'Close';
             addRestaurantForm.style.display = 'block'; // Show the form when the button is clicked
         } else {
-            addToggleBtn.textContent = 'Add Restaurant';
+            addToggleBtn.textContent = 'Add';
             addRestaurantForm.style.display = 'none'; // Hide the form when the button is clicked again
         }
     });
 
     searchToggleBtn.addEventListener('click', function () {
-        if (searchToggleBtn.textContent === 'Search Restaurant') {
+        if (searchToggleBtn.textContent === 'Search') {
             searchToggleBtn.textContent = 'Close';
             searchRestaurantForm.style.display = 'block'; // Show the form when the button is clicked
         } else {
-            searchToggleBtn.textContent = 'Search Restaurant';
+            searchToggleBtn.textContent = 'Search';
             searchRestaurantForm.style.display = 'none'; // Hide the form when the button is clicked again
         }
     });
 
     deleteToggleBtn.addEventListener('click', function () {
-        if (deleteToggleBtn.textContent === 'Delete Restaurant') {
+        if (deleteToggleBtn.textContent === 'Delete') {
             deleteToggleBtn.textContent = 'Close';
             deleteRestaurantForm.style.display = 'block'; // Show the form when the button is clicked
         } else {
-            deleteToggleBtn.textContent = 'Delete Restaurant';
+            deleteToggleBtn.textContent = 'Delete';
             deleteRestaurantForm.style.display = 'none'; // Hide the form when the button is clicked again
         }
     });
 
-    closeAddBtn.addEventListener('click', function () {
+   updateToggleBtn.addEventListener('click', function () {
+        if (updateToggleBtn.textContent === 'Update') {
+            updateToggleBtn.textContent = 'Close';
+            updateRestaurantForm.style.display = 'block'; // Show the form when the button is clicked
+        } else {
+            updateToggleBtn.textContent = 'Update';
+            updateRestaurantForm.style.display = 'none'; // Hide the form when the button is clicked again
+        }
+    });
+
+
+   closeAddBtn.addEventListener('click', function () {
         addToggleBtn.textContent = 'Add Restaurant';
         addRestaurantForm.style.display = 'none'; // Hide the form when the close button is clicked
     });
@@ -113,6 +139,12 @@
         deleteToggleBtn.textContent = 'Delete Restaurant';
         deleteRestaurantForm.style.display = 'none'; // Hide the form when the close button is clicked
     });
+
+    closeUpdateBtn.addEventListener('click', function () {
+        updateToggleBtn.textContent = 'Update Restaurant';
+        updateRestaurantForm.style.display = 'none'; // Hide the form when the close button is clicked
+    });
+
 </script>
 
 </html>
