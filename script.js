@@ -8,7 +8,7 @@ fetch('http://localhost:3000/restaurants')
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function (position) {
                 success(position, restaurantList); // Pass the position and restaurantList as parameters to the success function
-
+                generateRestaurantList(restaurantList)
             });
         }
     })
@@ -37,7 +37,6 @@ function createGeoJSON(restaurantList) {
     };
 }
 
-
 function DisplayMarker(restaurantList) {
     // Icon Option
     let iconOption = {
@@ -61,7 +60,6 @@ function DisplayMarker(restaurantList) {
 }
 
 function success(position, restaurantList) {
-    generateRestaurantList(restaurantList)
     const lat = position.coords.latitude;
     const lng = position.coords.longitude;
 
@@ -103,10 +101,33 @@ function generateRestaurantList(restaurantList) {
                 a.innerText = restaurant.name;
                 a.href = '#';
                 a.addEventListener('click', () => {
-                    flyToStore(restaurantList[key][key2]);
+
+                    let name = a.innerText;
+                    let address = '';
+
+                    // Build the query string with the search parameters
+                    let queryString = `?name=${encodeURIComponent(name)}&address=${encodeURIComponent(address)}`;
+                    fetch(`http://localhost:3000/restaurants/Search${queryString}`)
+                        .then(response => response.json())
+                        .then(list => {
+                            // Usage:
+                            const restaurantList = createGeoJSON(list);
+                            // Pass the retrieved restaurantList to the DisplayMarker function
+                            if (navigator.geolocation) {
+                                navigator.geolocation.getCurrentPosition(function (position) {
+                                    map.remove();
+                                    success(position, restaurantList); // Pass the position and restaurantList as parameters to the success function
+                                    // generateRestaurantList(restaurantList);
+                                });
+                            }
+                        })
+                        .catch(error => {
+                            console.log('Error retrieving restaurant data:', error);
+                        });
+
                 })
 
-                p.innerText = restaurant.address;
+                // p.innerText = restaurant.address;
                 div.appendChild(a);
                 div.appendChild(p);
                 li.appendChild(div);
@@ -114,6 +135,24 @@ function generateRestaurantList(restaurantList) {
             }
         }
     }
+}
+
+function generateRestaurantListSearchHistory(name, address) {
+    let ul = document.querySelector('.restaurant-history');
+
+    let li = document.createElement('li');
+    let div = document.createElement('div');
+    div.classList.add('restaurant-item');
+    let a = document.createElement('a');
+    let p = document.createElement('p');
+    a.innerText = name;
+    a.href = '#';
+    p.innerText = address;
+    div.appendChild(a);
+    div.appendChild(p);
+    li.appendChild(div);
+    ul.appendChild(li);
+
 }
 
 
@@ -180,7 +219,7 @@ document.getElementById('search-btn').addEventListener('click', function () {
                 navigator.geolocation.getCurrentPosition(function (position) {
                     map.remove();
                     success(position, restaurantList); // Pass the position and restaurantList as parameters to the success function
-                    generateRestaurantList(restaurantList);
+                    generateRestaurantListSearchHistory(name, address)
                 });
             }
         })

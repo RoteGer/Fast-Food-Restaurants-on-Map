@@ -61,7 +61,7 @@ app.post("/restaurants/register", (req, res) => {
 // Initial fetch
 app.get("/restaurants", (req, res) => {
   pool.query(
-    'SELECT * FROM fast_food_on_map.fast_food_restaurants where country = "US" LIMIT 100;',
+    'SELECT * FROM fast_food_on_map.fast_food_restaurants where country = "US" GROUP BY name LIMIT 100;',
     (err, results) => {
       if (err) {
         console.error(err);

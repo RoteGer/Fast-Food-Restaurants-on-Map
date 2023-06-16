@@ -2,6 +2,7 @@
 #map {
     width: 85%;
     margin: 10px;
+    height: 1050px;
     background-image: url("images/background-pic.jpg");
     background-size: cover;
 }
@@ -63,6 +64,31 @@ header {
     background-color: #F8F9FA;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     padding: 10px 50px;
+}
+
+     /* Define the font family, size, and color */
+ h3 {
+     font-family: Arial, sans-serif;
+     font-size: 24px;
+     color: #333333;
+     text-align: center;
+ }
+
+/* Add a background color and padding to the header */
+h3 {
+    background-color: #f2f2f2;
+    padding: 10px;
+}
+
+/* Add a border and border-radius to create a box-like effect */
+h3 {
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+}
+
+/* Add a shadow effect to make the header stand out */
+h3 {
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 nav {
