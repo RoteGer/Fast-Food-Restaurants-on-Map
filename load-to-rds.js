@@ -1,6 +1,8 @@
 const mysql = require("mysql2");
 const fs = require("fs");
 const csv = require("fast-csv");
+const dotenv = require("dotenv");
+dotenv.config();
 
 const DB_NAME = "fast_food_on_map";
 const TABLE_NAME = "fast_food_restaurants";
@@ -22,9 +24,9 @@ const columnTypes = {
 function createDatabase() {
   // Database connection configuration
   const connection = mysql.createConnection({
-    host: "gis-database.cezz5gd7zjpv.us-east-1.rds.amazonaws.com",
-    user: "admin",
-    password: "password",
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
   });
   const createDBQuery = `CREATE DATABASE ${DB_NAME}`;
 
@@ -44,9 +46,9 @@ const csvFilePath = "FastFoodRestaurants.csv";
 // Function to load CSV data into the database
 function loadCSVDataToDatabase() {
   const connection = mysql.createConnection({
-    host: "gis-database.cezz5gd7zjpv.us-east-1.rds.amazonaws.com",
-    user: "admin",
-    password: "password",
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
     database: DB_NAME,
   });
   fs.createReadStream(csvFilePath)
@@ -87,9 +89,9 @@ function loadCSVDataToDatabase() {
 // Function to create a table
 function createTable() {
   const connection = mysql.createConnection({
-    host: "gis-database.cezz5gd7zjpv.us-east-1.rds.amazonaws.com",
-    user: "admin",
-    password: "password",
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
     database: DB_NAME,
   });
   const createTableQuery = `CREATE TABLE IF NOT EXISTS fast_food_restaurants (
@@ -117,9 +119,9 @@ function createTable() {
 
 function readFromDatabase() {
   const connection = mysql.createConnection({
-    host: "gis-database.cezz5gd7zjpv.us-east-1.rds.amazonaws.com",
-    user: "admin",
-    password: "password",
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
     database: DB_NAME,
   });
   const selectQuery = `SELECT * FROM ${TABLE_NAME}`;

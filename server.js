@@ -115,7 +115,7 @@ app.post("/restaurants/delete", (req, res) => {
   const { name, address } = req.body;
   const values = [name, address];
   const sql =
-      "DELETE FROM fast_food_on_map.fast_food_restaurants WHERE name = ? AND address = ?";
+    "DELETE FROM fast_food_on_map.fast_food_restaurants WHERE name = ? AND address = ?";
 
   pool.query(sql, values, (err, result) => {
     if (err) {
@@ -132,11 +132,12 @@ app.post("/restaurants/delete", (req, res) => {
 
 // Update restaurant
 app.post("/restaurants/update", (req, res) => {
-  const { new_name, new_address, new_website, old_name, old_address } = req.body;
+  const { new_name, new_address, new_website, old_name, old_address } =
+    req.body;
   const values = [new_name, new_address, new_website, old_name, old_address];
-  console.log(req.body)
+  console.log(req.body);
   const sql =
-      "UPDATE fast_food_on_map.fast_food_restaurants SET name = ?, address = ?, websites = ? WHERE name = ? AND address = ?";
+    "UPDATE fast_food_on_map.fast_food_restaurants SET name = ?, address = ?, websites = ? WHERE name = ? AND address = ?";
 
   pool.query(sql, values, (err, result) => {
     if (err) {
@@ -144,11 +145,9 @@ app.post("/restaurants/update", (req, res) => {
       res.status(500).json({ error: "Error updating restaurant", sql: sql });
     } else {
       res.json({
-        // message: "Restaurant deleted successfully",
         message: sql,
         id: result.insertId,
       });
     }
   });
 });
-
