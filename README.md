@@ -17,11 +17,14 @@ GIS web project displaying fast food restaurants in the USA on a map.
 * When clicking on a restaurant from the brand list - the map shows all of it's locations in the US.
 * Search history list is shown below.
 
-### Link to the map page:
-https://fastfoodonmap.vercel.app/
+### Link to the project files:
+* Technical specifications
+* Project characterization
+* Explanatory presentation
+  
+https://drive.google.com/drive/folders/1fE1aRjThYqQW9e86BIo3Gh6a5FLWLai2?usp=sharing
+  
 
-### Link to a short clip of the project:
-https://clipchamp.com/watch/kXvTAo58NwT
 
 
 ![image](https://github.com/RoteGer/Fast-Food-Restaurants-on-Map/assets/76396600/eeabdc13-fba8-4410-aef4-87b1192fff44)
