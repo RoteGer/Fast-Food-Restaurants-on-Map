@@ -22,7 +22,6 @@ GIS web project displaying fast food restaurants in the USA on a map.
 * Project characterization
 * Explanatory presentation
   
-https://drive.google.com/drive/folders/1fE1aRjThYqQW9e86BIo3Gh6a5FLWLai2?usp=sharing
   
 
 
